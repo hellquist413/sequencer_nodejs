@@ -1,0 +1,211 @@
+
+  <div class="mydiv">
+
+    <div id="publishScreen">
+      <div class="publishContent">
+        <form action="sequencer/publish" method="POST" id="submitForm">
+          <h1>Publish sequence</h1>
+          Name<br>
+          <input type="text" maxlength="50" id="formAuthor" name="formAuthor"><br>
+          Description<br>
+          <textarea id="formDescription" maxlength="500" name="formDescription"></textarea>
+          <br>
+          <button type="submit">Publish!</button>
+        </form>
+
+      </div>
+      <a href="#" class="cancel">×</a>
+    </div>
+    <div id="cover">
+    </div>
+
+    <div class="mydivheader">Sequencer
+      <div class="presetBox">
+
+        <table width="100%" cellpadding="5px">
+          <tr>
+            <td align="right" width="20%" class="bright">
+              Made by:
+            </td>
+            <td width="70%" id="pAuthor"></td>
+            <td><img src="/img/thumb-down.svg" width="35" alt="vote up" id="thumb-up" onclick="vote(1);"></td>
+          </tr>
+          <tr>
+            <td align="right" width="20%" class="bright" valign="top">
+              Description:
+            </td>
+            <td width="70%" id="pDescription">
+              <div id="description"></div>
+            </td>
+            <td valign="top"><img src="/img/thumb-down.svg" alt="vote down" width="35" id="thumb-down" onclick="vote(-1);"></td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+    <div class="contentBox">
+
+      <div class="number-input">
+
+        <button class="minus bpm" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+          onmouseup="mouseUp('min')" onmousedown="mouseDown('min')">-
+        </button>
+
+        <input class="quantity" id="bpmInput" min="20" max="300" name="quantity" value="133" type="number" maxlength="3"
+          onkeypress="return isNumberKey(event);" oninput="this.value=this.value.slice(0,this.maxLength)" />
+
+        <button class="plus bpm" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+          onmouseup="mouseUp('plus')" onmousedown="mouseDown('plus')">+
+        </button>
+
+      </div>
+
+
+      <div class="controls">
+        <div class="dropdown-kit">
+          <span id="displayKit">Kit: SubtiltQuist</span>
+          <div class="dropdown-kit-content">
+            <span onclick="selectKit('1');activeKit('1')" id="kit1">SubtiltQuist</span>
+            <span onclick="selectKit('2');activeKit('2')" id="kit2">SSM</span>
+            <span onclick="selectKit('3');activeKit('3')" id="kit3">KrumQuist</span>
+            <!--
+            <span onclick="selectKit('4');activeKit('4')" id="kit4">Kit 4</span>
+            <span onclick="selectKit('5');activeKit('5')" id="kit5">Kit 5</span>
+            <span onclick="selectKit('6');activeKit('6')" id="kit6">Kit 6</span>
+            <span onclick="selectKit('7');activeKit('7')" id="kit7">Kit 7</span>
+            <span onclick="selectKit('8');activeKit('8')" id="kit8">Kit 8</span>
+            -->
+          </div>
+        </div>
+
+        <button class="btn" id="playBtn">Play</button>
+        <button class="btn" id="resetBtn" onclick="resetStepsArray()">Clear</button>
+
+        <button class="btn" id="minusBar" onclick="minusBar();">-4</button>
+        <button class="btn" id="plusBar" onclick="plusBar();">+4</button>
+
+
+        <div class="dropdown">
+
+          <span id="displaySwing">32n</span>
+          <input type="range" min="0" max="50" value="25" class="slider" id="swingSlider">
+
+          <div class="dropdown-content">
+            <span onclick="swingSub('4n')" id="4n">4n</span>
+            <span onclick="swingSub('4n.')" id="4n.">4n.</span>
+            <span onclick="swingSub('4t')" id="4t">4t</span>
+            <span onclick="swingSub('8n')" id="8n">8n</span>
+            <span  onclick="swingSub('8n.')" id="8n.">8n.</span>
+            <span onclick="swingSub('8t')" id="8t">8t</span>
+            <span onclick="swingSub('16n')" id="16n">16n</span>
+            <span onclick="swingSub('16n.')" id="16n.">16n.</span>
+            <span onclick="swingSub('16t')" id="16t">16t</span>
+            <span class="green" onclick="swingSub('32n')" id="32n">32n</span>
+            <span onclick="swingSub('32n.')" id="32n.">32n.</span>
+            <span onclick="swingSub('32t')" id="32t">32t</span>
+          </div>
+        </div>
+
+
+        <!-- js table -->
+
+        <div class="divTableCellTop"></div>
+
+        <div class="seque" id="seq"></div>
+        <div class="placeholder">
+          <div class="synthContainer">
+            <span>
+              <webaudio-knob id="knobVol" src="/images/fx-1.png" min="-20" max="10" diameter="64" value="-10">
+              </webaudio-knob>
+              <br />
+              Volume
+            </span>
+            <span>
+              <webaudio-knob id="knob1" src="/images/fx-1.png" min="-2400" max="2400" diameter="64" value="20"
+                step="100">
+              </webaudio-knob>
+              <br />
+              Semitone
+            </span>
+
+            <span>
+              <webaudio-knob id="knob2" src="/images/fx-1.png" min="1" max="1000" diameter="64" value="200">
+              </webaudio-knob>
+              <br />
+              Filter Cutoff
+            </span>
+
+            <span>
+              <webaudio-knob id="knob3" src="/images/fx-1.png" min="1" max="100" diameter="64" value="30">
+              </webaudio-knob>
+              <br />
+              Filter Envelope
+            </span>
+
+            <span>
+              <webaudio-knob id="knob4" src="/images/fx-1.png" min="0" max="100" diameter="64" value="50">
+              </webaudio-knob>
+              <br />
+              Sustain
+            </span>
+
+            <span>
+              <webaudio-knob id="knob5" src="/images/fx-1.png" min="0" max="100" diameter="64" value="10">
+              </webaudio-knob>
+              <br />
+              Ping Pong
+            </span>
+
+            <span>
+              <webaudio-knob id="knob6" src="/images/fx-1.png" min="0.1" max="100" diameter="64" value="30">
+              </webaudio-knob>
+              <br />
+              Reverb
+            </span>
+
+            <span>
+              <webaudio-knob id="knob7" src="/images/fx-1.png" min="0" max="100" diameter="64" value="0">
+              </webaudio-knob>
+              <br />
+              LFO Amount
+            </span>
+
+            <span>
+              <webaudio-knob id="knob8" src="/images/fx-1.png" min="1" max="100" diameter="64" value="0" log="1">
+              </webaudio-knob>
+              <br />
+              LFO Freq
+            </span>
+
+          </div>
+          <!-- end of js table -->
+          <div class="publish">
+            <a href="#publishScreen">
+              <button class="btn" id="publish">Publish</button>
+            </a>
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <br><br><br><br><br>
+
+      <div class="mydivheader">User presets</div>
+
+      <div class="user-presets">
+        <div class="user-presets-head" id="pHead">
+          <div class="user-presets-content-cell pCell1">Rating</div>
+          <div class="user-presets-content-cell pCell2">Author</div>
+          <div class="user-presets-content-cell pCell3">Description</div>
+        </div>
+      </div>
+      <div class="user-presets" id="up">
+
+      </div>
+      <br />
+    </div>
+  </div>
+
+  <br />
