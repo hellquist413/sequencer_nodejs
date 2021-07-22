@@ -22,26 +22,21 @@ router.get('/get-presets', (req, res) => {
 
 router.put('/vote', async (req, res) => {
 
-    const { id } = req.body.uPreId;
-    const { vote } = req.body.vote;
+    try {
+        const id = req.body.uPreId;
+        const vote = req.body.vote;
 
-    console.log(id);
-    console.log(vote);
-
-    // Preset.findOneAndUpdate({
-    //     id: req.params.id
-    // },
-    // {
-    //     rank: vote
-    // })
-
-    Preset.findById(id)
-    .then((result) => {
-        res.json(result);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+        Preset.findOneAndUpdate({ _id: id },
+        { $inc: { rating: vote } })
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    } catch(error) {
+        console.log(error);
+    }
 });
 
 router.get('/id/:id', (req, res) => {

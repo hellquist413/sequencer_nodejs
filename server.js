@@ -1,12 +1,13 @@
 const express = require('express')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
-const Tone = require('tone')
 const mongoose = require('mongoose')
 const indexRouter = require('./routes/index')
 const sequencerRouter = require('./routes/sequencer')
 require('dotenv').config()
 const PORT = 3000;
+mongoose.set('useFindAndModify', false);
+
 
 const dbURI = process.env.DATABASE;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })

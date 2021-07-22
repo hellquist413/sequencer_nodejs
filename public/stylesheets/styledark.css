@@ -23,6 +23,10 @@ body {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+.about a {
+  color: rgb(221, 172, 133);
+}
+
 /* --------------------------------------- */
 /* Navigation ---------------------------- */
 /* --------------------------------------- */
@@ -436,11 +440,11 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: #3a0ca5;
   border: 1px solid #462e6d;
   margin-top: 0;
-  height: 35px;
   text-align: left;
   margin-bottom: 0px;
-
-  top: 1px;
+  
+  height: 35px;
+  top: 2px;
   padding-left: 7px;
   padding-right: 7px;
 }

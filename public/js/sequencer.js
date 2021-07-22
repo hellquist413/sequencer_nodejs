@@ -19,13 +19,13 @@ let uPreId = "";
 let uPreRating = 0;
 let uPreAuthor = "";
 let uPreDescription = "";
-let uPreKit = 1;
+let uPreKit;
 let sampleUrl = 'http://localhost:3000/samples/';
 
 let activateHeader = document.querySelector('.presetBox');
 let bpmInput = document.getElementById('bpmInput');
 bpmInput.value = bpm;
-let previousKit = "1";
+let previousKit;
 
 // Kits //
 let vol1 = 0;
@@ -714,9 +714,6 @@ function listenToSong() {
 
       window.history.replaceState("", "", '/sequencer/?id=' + idN);
       lastId = idN;
-
-      previousKit = uPreKit;
-
       if (uPreId != "" && uPreId !== idN) {
         rowDiv = document.getElementById('pId_' + uPreId);
         rowDiv.classList.remove('cellActive');
@@ -735,6 +732,8 @@ function listenToSong() {
       steps = songsData.steps;
       rowDivId = idN;
       bpm = parseInt(songsData.bpm);
+      previousKit = uPreKit;
+
       
       Tone.Draw.cancel();
       swingSub(swingSubDiv);
@@ -745,16 +744,19 @@ function listenToSong() {
       swingSubDiv = songsData.swingsub;      
 
       bpmInput.value = bpm;
-      swingValue = document.getElementById("swingSlider").value = swingValueDef;
+      let swingValue = document.getElementById("swingSlider").value = swingValueDef;
 
-      setPresetBoxAuthor = document.getElementById('pAuthor');
+      const setPresetBoxAuthor = document.getElementById('pAuthor');
       setPresetBoxAuthor.innerHTML = uPreAuthor;
 
-      setPresetBoxDescr = document.getElementById('pDescription');
+      const setPresetBoxDescr = document.getElementById('pDescription');
       setPresetBoxDescr.innerHTML = uPreDescription;
 
-      removeLastActiveKit = document.getElementById('kit' + previousKit)
-      removeLastActiveKit.classList.remove('green');
+      const getAllKitsList = document.querySelectorAll('.kitc');
+
+      for(let j = 0; j < getAllKitsList.length; j++) {
+        getAllKitsList[j].classList.remove('green');
+      }
 
       newActiveKit = document.getElementById('kit' + uPreKit);
       newActiveKit.classList.add('green');
@@ -778,6 +780,15 @@ function listenToSong() {
 
     rowDiv = document.getElementById(id);
     if(rowDiv) { rowDiv.classList.add('cellActive'); }
+    addgreenPlay();
+}
+
+function addgreenPlay () {
+  const button = document.getElementById('playBtn');
+  if (initialized && !isPlaying) {
+    button.innerHTML = 'Stop';
+    button.classList.add('green');
+  }
 }
 
 function sanitizeString(str) {
@@ -863,35 +874,19 @@ function requireValue(input, message) {
     success(input);
 }
 
-// ----------------------------------------------// 
-// Fix this vote 
+// ----------------------------------------------//  
 
 async function vote(vote) {
-
-  if (vote === 1) {
-    console.log('vote up');
-  } else {
-    console.log('vote down');
-  }
-    console.log(uPreId);
-
-// const requestVote = new Request('/vote' );
-const voteData = { uPreId, vote };
-
-const options = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(voteData)
-};
-console.log(JSON.stringify(voteData));
-
-const res = await fetch('/vote', options);
-const json = await res.json();
-console.log(json);
-
-// return json;
+  const voteData = { uPreId, vote };
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(voteData)
+  };
+  const res = await fetch('/sequencer/vote', options);
+  const json = await res.json();
 }
 
 // ----------------------------------------------// 

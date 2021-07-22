@@ -23,6 +23,10 @@ body {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+.about a {
+  color: rgb(156, 70, 0);
+}
+
 /* --------------------------------------- */
 /* Navigation ---------------------------- */
 /* --------------------------------------- */
@@ -429,9 +433,13 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: #cccccc;
   border: 1px solid #adadad;
   margin-top: 0;
-  padding: 8px;
   text-align: left;
   margin-bottom: 0px;
+
+  height: 35px;
+  top: 2px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 
 .dropdown-kit-content {
@@ -445,8 +453,9 @@ input[type=number]::-webkit-outer-spin-button {
    -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  top: 49px; /* -365px - 10 rader */
-  left: 0px;
+
+  top: 34px;
+  left: -3px;
 }
 .dropdown-kit-content span {
   border: 0px solid #adadad;
@@ -584,7 +593,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .mixElementFilter {
-  filter: invert(48%) sepia(20%) saturate(247%) hue-rotate(86deg) brightness(118%) contrast(119%);  
+  filter: invert(28%) sepia(50%) saturate(147%) hue-rotate(6deg) brightness(118%) contrast(119%);  
 }
 
 .forth {
