@@ -208,7 +208,7 @@ function createTable(rows, steps) {
     newTableSpace.classList.add('tableSpace');
     newTableSpace.setAttribute('id', 'mix' + i);
     newTableSpace.innerHTML = (
-      '<img src="../img/inst/mix.svg" id="inst" onclick="triggerMix('
+      '<img src="../img/inst/mix.svg" height="40" id="inst" onclick="triggerMix('
       + instrumentId +
       ')" class="mixElementFilter">'
     );
@@ -607,21 +607,21 @@ const mouseUp = () => {
 
 
 
-let requestTrack = new Request('/sequencer/get-presets');
 
 function loadPresetList() {
+
+let requestTrack = new Request('/sequencer/get-presets');
 
   fetch(requestTrack)
     .then(function (response) {
       return response.json();
     })
     .then(function (songsData) {
-
+      
       // Create Rows
       let i = 1;
-
       songsData.forEach(songsData => {
-        let pId = songsData.id;
+        // let pId = songsData.id;
         let pAuthor = songsData.author;
         let pDescription = songsData.description;
         let pRating = songsData.rating;
@@ -667,7 +667,7 @@ function loadPresetList() {
       for (let i = 0; i < presetRows.length; i++) {
         presetRows[i].addEventListener('click', listenToSong);
       }
-      return songsData
+      return songsData;
     });
 }
 

@@ -8,29 +8,60 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-  <link id="theme" rel="stylesheet" href="/stylesheets/style.css">
   <script src="/js/webaudio-controls.js"></script>
-      <script>
-        var currentTheme = "light";
-        function toggleTheme() {
-          var theme = document.getElementById('theme');
-          var themeKnob = document.getElementsByTagName('webaudio-knob');
-          // console.log(themeKnob);
-          if (theme.getAttribute('href') == '/stylesheets/style.css') {
-            currentTheme = "night";
-            theme.setAttribute('href', '/stylesheets/styledark.css');
-            for (let i = 0; i < themeKnob.length; i++) {
-              themeKnob[i].src = '/images/fx-1.png';
-            }
-          } else {
-            currentTheme = "light";
-            theme.setAttribute('href', '/stylesheets/style.css');
-            for (let i = 0; i < themeKnob.length; i++) {
-              themeKnob[i].src = '/images/fx-2.png';
-            }
-          }
-        }
-      </script>
+  <script>
+
+
+    var currentTheme = "light";
+    function toggleTheme() {
+      var theme = document.getElementById('theme');
+      
+      if (currentTheme === "light") {
+        setNight();
+      } else {
+        setLight();
+      }
+    }
+    
+    function setThemeCookie() {
+      var theme = document.getElementById('theme');
+      var endDate = new Date();
+      endDate.setFullYear(endDate.getFullYear() + 1);
+      document.cookie = 'theme=' + (currentTheme) + '; Expires=' + endDate + ';';
+      console.log('Cookies are now: ' + document.cookie);
+    }
+    
+    function setNight() {
+      var theme = document.getElementById('theme');
+      var themeKnob = document.getElementsByTagName('webaudio-knob');
+      currentTheme = "night";
+      theme.setAttribute('href', '/stylesheets/styledark.css');
+
+      for (let i = 0; i < themeKnob.length; i++) {
+        themeKnob[i].src = '/images/fx-1.png';
+      }
+      setThemeCookie();
+    }
+
+    function setLight() {
+      var themeKnob = document.getElementsByTagName('webaudio-knob');
+      currentTheme = "light";
+      theme.setAttribute('href', '/stylesheets/style.css');
+
+      for (let i = 0; i < themeKnob.length; i++) {
+        themeKnob[i].src = '/images/fx-2.png';
+      }
+      setThemeCookie();
+    }
+
+    window.onload = function () {
+      themeCookie = document.cookie.match(/theme=night/i);
+      if (themeCookie) { setNight(); } else { setLight(); }
+    }
+
+  </script>
+  <link id="theme" rel="stylesheet" href="/stylesheets/style.css">
+
 </head>
 
 <body>

@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/get-presets', (req, res) => {
-    Preset.find().sort({ createdAt: -1 })
+    Preset.find().sort({ rating: -1 })
     .then((result) => {
         res.send(result);
     })
