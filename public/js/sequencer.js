@@ -858,8 +858,7 @@ async function submitData(formAuthor, formDescription) {
 
   const res = await fetch(url, options);
   const json = await res.json();
-  console.log(json);
-  window.location.assign('/sequencer');
+  window.location.assign('/sequencer/?id=' + json['_id']);
 
   let presetContainer = document.getElementById('up');
   presetContainer.innerHTML = '';

@@ -15,21 +15,21 @@
     var currentTheme = "light";
     function toggleTheme() {
       var theme = document.getElementById('theme');
-      
+
       if (currentTheme === "light") {
         setNight();
       } else {
         setLight();
       }
     }
-    
+
     function setThemeCookie() {
-      var theme = document.getElementById('theme');
-      var endDate = new Date();
-      endDate.setFullYear(endDate.getFullYear() + 1);
-      document.cookie = 'theme=' + (currentTheme) + '; Expires=' + endDate + ';';
+        var theme = document.getElementById('theme');
+        var endDate = new Date();
+        endDate.setFullYear(endDate.getFullYear() + 1);
+        document.cookie = 'theme=' + (currentTheme) + '; Expires=' + endDate + '; path=/';
     }
-    
+
     function setNight() {
       var theme = document.getElementById('theme');
       var themeKnob = document.getElementsByTagName('webaudio-knob');
