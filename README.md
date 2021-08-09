@@ -3,6 +3,8 @@ Sequencer website
 
 ~ Music sequencer project ~
 
+![Sequencer](https://github.com/hellquist413/sequencer_nodejs/blob/main/screenshot.png)
+
 This project is created for me to learn the Javascript programming language.
 The sequencer is made with Tone.js Web Audio framework API and the knobs are webaudio-controls.
 Don't rely on the code to be optimized.
