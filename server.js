@@ -8,7 +8,7 @@ require('dotenv').config()
 const PORT = 3000;
 mongoose.set('useFindAndModify', false);
 const cors = require('cors')
-const useDB = FALSE;
+const useDB = false;
 
 
 const dbURI = process.env.DATABASE;
@@ -19,12 +19,14 @@ const corsOptions = {
     optionsSuccessStatus: 200
 }
 
-if(useDB === TRUE) {
+if(useDB === true) {
     mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => app.listen(PORT, () => console.log(`Connected to db!`)))
     .catch((err) => console.log(err));
 } else {
-    app.listen(PORT, () => console.log(`No db!`))
+    app.listen(PORT, () =>
+    console.log(`!-- useDB set to false! No database connected! --!\n!-- local server running at http://localhost:` + PORT + ` --!`)
+    )
 }
 
 app.use(cors())
