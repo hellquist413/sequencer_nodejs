@@ -340,7 +340,7 @@ function activeKit (value) {
     grabPreviousKitDOM.classList.remove('green');
   }
 
-  grabCurrentKitDOM.innerHTML = ('Kit: ' + currentKitName);;
+  grabCurrentKitDOM.innerHTML = ('Kit: ' + currentKitName);
   
 }
 
